@@ -1,6 +1,9 @@
 # Data Aggregator Api
 A backend application using FastAPI that concurrently fetches data from two or three public APIs (like weather, stock prices, or game server statuses) and aggregates the data into a single, cleaned-up JSON response.
 
+## Skills Showcased: 
+Asynchronous programming (async/await), third-party API integration, data parsing, and high-performance Python web frameworks.
+
 ## How to run locally with Docker
 
 1.  **Build the Docker image:**
@@ -14,7 +17,19 @@ A backend application using FastAPI that concurrently fetches data from two or t
     ```
     The API will be available at `http://localhost:8000`. You can access the health check at `http://localhost:8000/health` and the interactive documentation at `http://localhost:8000/docs`.
 
-## Examples
+**Delete the Docker image:**
+    ```bash
+    docker rmi -f data-aggregator-api
+    ```
 
-## Skills Showcased: 
-Asynchronous programming (async/await), third-party API integration, data parsing, and high-performance Python web frameworks.
+## API Documentation
+
+Access the interactive API documentation (Swagger UI) at:
+http://localhost:8000/docs
+
+## Example API Call
+
+You can test the `/profile/{gamer_tag}` endpoint using `curl`:
+
+```bash
+curl -X GET "http://localhost:8000/profile/test_user" -H "accept: application/json"

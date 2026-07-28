@@ -1,6 +1,6 @@
 import logging
 
-from fastapi import FastAPI, HTTPException, status
+from fastapi import FastAPI, HTTPException, status, Path
 
 from app.aggregator import get_aggregated_profile
 from app.models import PlayerProfile
@@ -26,15 +26,22 @@ async def health_check():
 @app.get(
     "/profile/{gamer_tag}",
     response_model=PlayerProfile,
-    tags=["Profiles"],
+    tags=["Player Profile"],
     summary="Get Aggregated Player Profile",
     description="Fetches and aggregates gaming stats for a given gamer tag from multiple sources concurrently.",
 )
-async def get_player_profile(gamer_tag: str) -> PlayerProfile:
+async def get_player_profile(
+    gamer_tag: str = Path(
+        ..., title="Gamer Tag", description="The username or gamer tag of the player to look up."
+    )
+) -> PlayerProfile:
     """
     Retrieves an aggregated player profile for the given gamer tag.
 
-    - **gamer_tag**: The unique identifier for the player.
+    This endpoint concurrently fetches player statistics from simulated Steam, Xbox Live,
+    and Riot Games APIs. It then aggregates this data into a single, comprehensive
+    player profile. If any of the individual platform API calls fail, the available
+    data will still be returned, with the failed platform's stats marked as `null`.
     """
     try:
         profile = await get_aggregated_profile(gamer_tag)
