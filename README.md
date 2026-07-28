@@ -5,13 +5,22 @@ A backend application using FastAPI that concurrently fetches data from two or t
 Asynchronous programming (async/await), third-party API integration, data parsing, and high-performance Python web frameworks.
 
 ## How to run locally with Docker
+1. **Clone repository**
+    ```bash
+    git clone https://github.com/Smb7/Data-Aggregator-Api.git
+    ```
 
-1.  **Build the Docker image:**
+1. **Navigate to project directory**
+    ```bash
+    cd Data-Aggregator-Api
+    ```
+
+3.  **Build the Docker image:**
     ```bash
     docker build -t data-aggregator-api .
     ```
 
-2.  **Run the Docker container:**
+4.  **Run the Docker container:**
     ```bash
     docker run -p 8000:80 data-aggregator-api
     ```
