@@ -17,6 +17,11 @@ Asynchronous programming (async/await), third-party API integration, data parsin
     ```
     The API will be available at `http://localhost:8000`. You can access the health check at `http://localhost:8000/health` and the interactive documentation at `http://localhost:8000/docs`.
 
+**Delete the Docker image:**
+    ```bash
+    docker rmi -f data-aggregator-api
+    ```
+
 ## API Documentation
 
 Access the interactive API documentation (Swagger UI) at:

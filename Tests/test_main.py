@@ -23,13 +23,16 @@ def test_get_profile_success():
     assert "steam_stats" in data
     assert "xbox_stats" in data
     assert "riot_stats" in data
-
-    # 4. Assert the structure of each nested dictionary
-    assert "total_playtime_hours" in data["steam_stats"]
-    assert "games_owned" in data["steam_stats"]
-
-    assert "gamerscore" in data["xbox_stats"]
-    assert "recent_achievements" in data["xbox_stats"]
-
-    assert "rank" in data["riot_stats"]
-    assert "win_loss_ratio" in data["riot_stats"]
+ 
+    # 4. Assert the content and structure of each nested dictionary
+    steam_stats = data["steam_stats"]
+    assert steam_stats["total_playtime_hours"] == 1500
+    assert steam_stats["games_owned"] == 250
+ 
+    xbox_stats = data["xbox_stats"]
+    assert xbox_stats["gamerscore"] == 75000
+    assert xbox_stats["recent_achievements"] == ["Master Collector", "Legend of the Wastes"]
+ 
+    riot_stats = data["riot_stats"]
+    assert riot_stats["rank"] == "Diamond IV"
+    assert riot_stats["win_loss_ratio"] == 1.2
