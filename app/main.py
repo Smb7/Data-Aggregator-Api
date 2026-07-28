@@ -1,4 +1,10 @@
-from fastapi import FastAPI
+import logging
+
+from fastapi import FastAPI, HTTPException, status
+
+from app.aggregator import get_aggregated_profile
+from app.models import PlayerProfile
+
 
 app = FastAPI(
     title="Data Aggregator API",
@@ -6,12 +12,39 @@ app = FastAPI(
     version="0.1.0",
 )
 
+logger = logging.getLogger(__name__)
+
+
 @app.get("/health", tags=["Health"])
 async def health_check():
     """
     Health check endpoint to ensure the service is running.
     """
     return {"status": "healthy"}
+
+
+@app.get(
+    "/profile/{gamer_tag}",
+    response_model=PlayerProfile,
+    tags=["Profiles"],
+    summary="Get Aggregated Player Profile",
+    description="Fetches and aggregates gaming stats for a given gamer tag from multiple sources concurrently.",
+)
+async def get_player_profile(gamer_tag: str) -> PlayerProfile:
+    """
+    Retrieves an aggregated player profile for the given gamer tag.
+
+    - **gamer_tag**: The unique identifier for the player.
+    """
+    try:
+        profile = await get_aggregated_profile(gamer_tag)
+        return profile
+    except Exception as e:
+        logger.error(f"An unexpected error occurred while fetching profile for {gamer_tag}: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="An internal error occurred while processing the request.",
+        )
 
 # Placeholder for future database setup
 @app.on_event("startup")
