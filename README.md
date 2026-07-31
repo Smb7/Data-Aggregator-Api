@@ -1,5 +1,5 @@
 # Data Aggregator Api
-A backend application using FastAPI that concurrently fetches data from two or three public APIs (like weather, stock prices, or game server statuses) and aggregates the data into a single, cleaned-up JSON response.
+A high-performance backend application using FastAPI that concurrently fetches and standardizes user profile data from multiple mocked gaming platforms (Steam, Xbox Live, and Riot Games) into a single, unified JSON response.
 
 ## Skills Showcased: 
 Asynchronous programming (async/await), third-party API integration, data parsing, and high-performance Python web frameworks.
